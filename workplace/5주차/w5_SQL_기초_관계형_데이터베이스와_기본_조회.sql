@@ -39,7 +39,7 @@ INSERT INTO project_name.dataset_name.customers VALUES
   ('C012', '신아린', 'Japan', '2023-07-07', 'Silver'),
   ('C013', '권준서', 'Korea', '2023-07-25', 'Gold'),
   ('C014', '황지안', 'USA', '2023-08-10', NULL),
-  ('C015', '안수아', 'Korea', '2023-08-28', 'Bronze')
+  ('C015', '안수아', 'Korea', '2023-08-28', 'Bronze');
 
 -- [C3]
 CREATE OR REPLACE TABLE project_name.dataset_name.orders (
@@ -80,13 +80,13 @@ INSERT INTO project_name.dataset_name.orders VALUES
   ('O0027', 'C013', '2024-01-22', 'Shipped', 405000),
   ('O0028', 'C006', '2024-01-28', 'Paid', 58000),
   ('O0029', 'C004', '2024-02-04', 'Returned', 73000),
-  ('O0030', 'C012', '2024-02-11', 'Paid', 187000)
+  ('O0030', 'C012', '2024-02-11', 'Paid', 187000);
 
 -- [C4] customers 테이블에 데이터가 들어갔는지 결과 중 5행을 확인합니다.
 SELECT
   *
 FROM project_name.dataset_name.customers
-LIMIT 5
+LIMIT 5;
 
 -- ═════════════════════════════════════════════════
 -- 3. 스키마 — 테이블의 설계도
@@ -107,7 +107,7 @@ DESCRIBE project_name.dataset_name.customers;
 
 -- [C6] ⌨️ 백문이 불여일타 (1) — orders 테이블 스키마 확인
 
--- 여기에 SQL 쿼리를 작성하세요.
+DESCRIBE project_name.dataset_name.orders;
 
 -- ═════════════════════════════════════════════════
 -- 5. ▶️ **코드 실행하기 · 코드 셀 7 [C7]**
@@ -118,7 +118,7 @@ SELECT
   name,
   country,
   grade
-FROM project_name.dataset_name.customers
+FROM project_name.dataset_name.customers;
 
 -- ═════════════════════════════════════════════════
 -- 6. ⌨️ 백문이 불여일타 (2)
@@ -126,7 +126,11 @@ FROM project_name.dataset_name.customers
 
 -- [C8] ⌨️ 백문이 불여일타 (2) — orders에서 세 열만 골라 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  amount
+FROM project_name.dataset_name.orders;
 
 -- ═════════════════════════════════════════════════
 -- 7. ⌨️ 백문이 불여일타 (3)
@@ -134,7 +138,11 @@ FROM project_name.dataset_name.customers
 
 -- [C9] ⌨️ 백문이 불여일타 (3) — customers 열 순서 바꿔 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  grade,
+  name,
+  country
+FROM project_name.dataset_name.customers;
 
 -- ═════════════════════════════════════════════════
 -- 8. ▶️ **코드 실행하기 · 코드 셀 10 [C10]**
@@ -147,7 +155,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  status = 'Paid'
+  status = 'Paid';
 
 -- ═════════════════════════════════════════════════
 -- 9. ▶️ **코드 실행하기 · 코드 셀 11 [C11]**
@@ -160,7 +168,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  amount >= 100000
+  amount >= 100000;
 
 -- ═════════════════════════════════════════════════
 -- 10. ⌨️ 백문이 불여일타 (4)
@@ -168,7 +176,13 @@ WHERE
 
 -- [C12] ⌨️ 백문이 불여일타 (4) — 취소가 아닌 주문만 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  status != 'Cancelled';
 
 -- ═════════════════════════════════════════════════
 -- 11. ⌨️ 백문이 불여일타 (5)
@@ -176,7 +190,13 @@ WHERE
 
 -- [C13] ⌨️ 백문이 불여일타 (5) — 5만원 미만 소액 주문 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  amount < 50000;
 
 -- ═════════════════════════════════════════════════
 -- 12. ▶️ **코드 실행하기 · 코드 셀 14 [C14]**
@@ -189,7 +209,7 @@ SELECT
   grade
 FROM project_name.dataset_name.customers
 WHERE
-  country = 'Korea' AND grade = 'Gold'
+  country = 'Korea' AND grade = 'Gold';
 
 -- ═════════════════════════════════════════════════
 -- 13. ▶️ **코드 실행하기 · 코드 셀 15 [C15]**
@@ -202,7 +222,7 @@ SELECT
   grade
 FROM project_name.dataset_name.customers
 WHERE
-  grade = 'Gold' OR grade = 'Silver'
+  grade = 'Gold' OR grade = 'Silver';
 
 -- ═════════════════════════════════════════════════
 -- 14. ▶️ **코드 실행하기 · 코드 셀 16 [C16]**
@@ -214,7 +234,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  amount BETWEEN 50000 AND 100000
+  amount BETWEEN 50000 AND 100000;
 
 -- ═════════════════════════════════════════════════
 -- 15. ▶️ **코드 실행하기 · 코드 셀 17 [C17]**
@@ -227,7 +247,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  status IN ('Paid', 'Shipped')
+  status IN ('Paid', 'Shipped');
 
 -- ═════════════════════════════════════════════════
 -- 16. ⌨️ 백문이 불여일타 (6)
@@ -235,7 +255,13 @@ WHERE
 
 -- [C18] ⌨️ 백문이 불여일타 (6) — 한국·일본 고객 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  name,
+  country,
+  grade
+FROM project_name.dataset_name.customers
+WHERE
+  country IN ('Korea', 'Japan');
 
 -- ═════════════════════════════════════════════════
 -- 17. ⌨️ 백문이 불여일타 (7)
@@ -243,7 +269,14 @@ WHERE
 
 -- [C19] ⌨️ 백문이 불여일타 (7) — Paid이면서 10만~30만원 주문 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  status = 'Paid'
+  AND amount BETWEEN 100000 AND 300000;
 
 -- ═════════════════════════════════════════════════
 -- 18. ▶️ **코드 실행하기 · 코드 셀 20 [C20]**
@@ -256,7 +289,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  amount IS NULL
+  amount IS NULL;
 
 -- ═════════════════════════════════════════════════
 -- 19. ▶️ **코드 실행하기 · 코드 셀 21 [C21]**
@@ -269,7 +302,7 @@ SELECT
   amount
 FROM project_name.dataset_name.orders
 WHERE
-  amount IS NOT NULL
+  amount IS NOT NULL;
 
 -- ═════════════════════════════════════════════════
 -- 20. ▶️ **코드 실행하기 · 코드 셀 22 [C22]**
@@ -282,7 +315,7 @@ SELECT
   amount * 1.1 AS amount_with_tax
 FROM project_name.dataset_name.orders
 WHERE
-  amount IS NOT NULL
+  amount IS NOT NULL;
 
 -- ═════════════════════════════════════════════════
 -- 21. ⌨️ 백문이 불여일타 (8)
@@ -290,7 +323,13 @@ WHERE
 
 -- [C23] ⌨️ 백문이 불여일타 (8) — 국가 정보가 빈 고객 찾기
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  customer_id,
+  name,
+  country
+FROM project_name.dataset_name.customers
+WHERE
+  country IS NULL;
 
 -- ═════════════════════════════════════════════════
 -- 22. ⌨️ 백문이 불여일타 (9)
@@ -298,7 +337,13 @@ WHERE
 
 -- [C24] ⌨️ 백문이 불여일타 (9) — 금액의 5% 적립 포인트 계산
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  amount,
+  amount * 0.05 AS point
+FROM project_name.dataset_name.orders
+WHERE
+  amount IS NOT NULL;
 
 -- ═════════════════════════════════════════════════
 -- 23. ⌨️ 백문이 불여일타 (10)
@@ -306,7 +351,16 @@ WHERE
 
 -- [C25] ⌨️ 백문이 불여일타 (10) — 조건 3개를 모두 만족하는 주문 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  status IN ('Paid', 'Shipped')
+  AND amount >= 100000
+  AND order_date >= '2023-11-01';
 
 -- ═════════════════════════════════════════════════
 -- 24. 📒 연습 문제 — 조회와 필터링 (10문항)
@@ -316,7 +370,13 @@ WHERE
 
 -- 문제: `status`가 `'Shipped'`인 주문의 `order_id`·`order_date`·`status`를 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  status
+FROM project_name.dataset_name.orders
+WHERE
+  status = 'Shipped';
 
 -- ═════════════════════════════════════════════════
 -- 25. <details>
@@ -326,7 +386,11 @@ WHERE
 
 -- 문제: `status`가 `'Cancelled'`가 아닌 주문을 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  status != 'Cancelled';
 
 -- ═════════════════════════════════════════════════
 -- 26. <details>
@@ -336,7 +400,11 @@ WHERE
 
 -- 문제: `order_date`가 2023-10-01 이후인 주문을 조회합니다. 당일을 포함합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  order_date >= '2023-10-01';
 
 -- ═════════════════════════════════════════════════
 -- 27. <details>
@@ -346,7 +414,13 @@ WHERE
 
 -- 문제: `amount`가 100,000원 미만인 주문의 `order_id`·`order_date`·`amount`를 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  amount < 100000;
 
 -- ═════════════════════════════════════════════════
 -- 28. <details>
@@ -356,7 +430,12 @@ WHERE
 
 -- 문제: `amount`가 150,000원 이하이고 `order_date`가 2023-10-01 이후인 주문을 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  amount <= 150000
+  AND order_date >= '2023-10-01';
 
 -- ═════════════════════════════════════════════════
 -- 29. <details>
@@ -366,7 +445,12 @@ WHERE
 
 -- 문제: `amount`가 100,000원 이하이거나 `order_date`가 2023-11-01 이후인 주문을 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  amount <= 100000
+  OR order_date >= '2023-11-01';
 
 -- ═════════════════════════════════════════════════
 -- 30. <details>
@@ -376,7 +460,11 @@ WHERE
 
 -- 문제: `status`가 `'Placed'` 또는 `'Cancelled'`인 주문을 `IN`으로 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  status IN ('Placed', 'Cancelled');
 
 -- ═════════════════════════════════════════════════
 -- 31. <details>
@@ -386,7 +474,11 @@ WHERE
 
 -- 문제: `status`가 `'Placed'`도 `'Cancelled'`도 아닌 주문을 `NOT IN`으로 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  status NOT IN ('Placed', 'Cancelled');
 
 -- ═════════════════════════════════════════════════
 -- 32. <details>
@@ -396,7 +488,13 @@ WHERE
 
 -- 문제: `amount`가 `NULL`인 주문의 `order_id`·`status`·`amount`를 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  amount IS NULL;
 
 -- ═════════════════════════════════════════════════
 -- 33. <details>
@@ -406,7 +504,11 @@ WHERE
 
 -- 문제: `order_date`가 2023-10-01부터 2023-10-31까지인 주문을 `BETWEEN`으로 조회합니다.
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  *
+FROM project_name.dataset_name.orders
+WHERE
+  order_date BETWEEN '2023-10-01' AND '2023-10-31';
 
 -- ═════════════════════════════════════════════════
 -- 34. 🧪 종합 실습 — 조건별 주문 조회 쿼리 작성
@@ -414,7 +516,14 @@ WHERE
 
 -- [C36] 🧪 종합 실습 — 조건별 주문 조회 쿼리 작성 (1/3)
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  status IN ('Cancelled', 'Returned');
 
 -- ═════════════════════════════════════════════════
 -- 35. **질문 2.** 금액이 입력된 주문 중 20만원을 초과하는 고액 주문을 조회합니다.
@@ -422,7 +531,15 @@ WHERE
 
 -- [C37] 🧪 종합 실습 — 조건별 주문 조회 쿼리 작성 (2/3)
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  amount IS NOT NULL
+  AND amount > 200000;
 
 -- ═════════════════════════════════════════════════
 -- 36. **질문 3.** 결제 완료(`Paid`) 또는 배송 완료(`Shipped`) 상태인 주문만 추려 시각화에 사용할 데이터를 준비합니다. 상태별 건수 집계는 다음 시간에 `GROUP BY`와 `COUNT`로 다룹니다.
@@ -430,7 +547,14 @@ WHERE
 
 -- [C38] 🧪 종합 실습 — 조건별 주문 조회 쿼리 작성 (3/3)
 
--- 아래에 SQL 쿼리를 작성하세요.
+SELECT
+  order_id,
+  order_date,
+  status,
+  amount
+FROM project_name.dataset_name.orders
+WHERE
+  status IN ('Paid', 'Shipped');
 
 -- ═════════════════════════════════════════════════
 -- 37. 코드 퀴즈
@@ -438,4 +562,11 @@ WHERE
 
 -- [C39] 코드 퀴즈 — 미국이 아니면서 등급이 있는 고객 조회
 
--- 여기에 SQL 쿼리를 작성하세요.
+SELECT
+  name,
+  country,
+  grade
+FROM project_name.dataset_name.customers
+WHERE
+  country != 'USA'
+  AND grade IS NOT NULL;
